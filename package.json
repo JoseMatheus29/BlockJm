@@ -1,0 +1,15 @@
+{
+  "name": "blockjm",
+  "version": "1.0.0",
+  "description": "Web developer with node and blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "José Matheus",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "web3": "^4.16.0"
+  }
+}
