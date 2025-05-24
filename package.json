@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "alchemy-sdk": "^3.5.10"
+    "alchemy-sdk": "^3.5.10",
+    "express": "^5.1.0",
+    "web3": "^4.16.0"
   }
 }
