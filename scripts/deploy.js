@@ -9,7 +9,6 @@ async function main() {
   const contract = await DocCert.deploy();
 
   await contract.waitForDeployment();
-
   console.log("🎉 Contrato deployado em:", contract.target);
 }
 
