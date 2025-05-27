@@ -23,7 +23,7 @@ contract DocumentCertification {
     /// @param documentHash Hash SHA-256 ou similar do documento
     function certifyDocument(bytes32 documentHash) external {
         // Garante que o documento ainda não foi certificado
-        require(certifications[documentHash].timestamp == 0, "Já certificado");
+        require(certifications[documentHash].timestamp == 0, "Ja certificado");
 
         // Grava a certificação
         certifications[documentHash] = Certification({
@@ -44,7 +44,7 @@ contract DocumentCertification {
         returns (uint256 timestamp, address certifier)
     {
         Certification memory cert = certifications[documentHash];
-        require(cert.timestamp != 0, "Não certificado");
+        require(cert.timestamp != 0, "Nao certificado");
         return (cert.timestamp, cert.certifier);
     }
 }
