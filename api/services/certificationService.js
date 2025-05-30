@@ -70,3 +70,8 @@ exports.deleteCertification = async (documentHash) => {
     where: { documentHash },
   });
 };
+exports.getByCertifier = async (certifier) => {
+  return await prisma.certification.findMany({
+    where: { certifier },
+  });
+};

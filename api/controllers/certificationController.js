@@ -52,3 +52,12 @@ exports.deleteCertification = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+exports.getByCertifier = async (req, res) => {
+  try {
+    const { address } = req.params;
+    const results = await certificationService.getByCertifier(address);
+    res.json(results);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
