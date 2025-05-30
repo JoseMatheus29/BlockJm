@@ -4,5 +4,6 @@ const certificationController = require('../controllers/certificationController'
 
 router.post('/certify', certificationController.certifyDocument);
 router.get('/:hash', certificationController.getCertification);
+router.get('/', certificationController.listAll);
 
 module.exports = router;

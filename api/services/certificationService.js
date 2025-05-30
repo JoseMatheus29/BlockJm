@@ -43,3 +43,7 @@ exports.getCertification = async (documentHash) => {
 
     return { documentHash, timestamp: new Date(timestamp * 1000), certifier };
 };
+
+exports.listAll = async () => {
+  return await prisma.certification.findMany();
+};
