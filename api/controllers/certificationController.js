@@ -31,3 +31,14 @@ exports.listAll = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+exports.updateCertification = async (req, res) => {
+  try {
+    const { hash } = req.params;
+    const data = req.body;
+
+    const updated = await certificationService.updateCertification(hash, data);
+    res.json(updated);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

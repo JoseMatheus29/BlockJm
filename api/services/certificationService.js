@@ -47,3 +47,15 @@ exports.getCertification = async (documentHash) => {
 exports.listAll = async () => {
   return await prisma.certification.findMany();
 };
+
+exports.updateCertification = async (documentHash, data) => {
+  const existing = await prisma.certification.findUnique({
+    where: { documentHash },
+  });
+  if (!existing) throw new Error('Certificação não encontrada');
+
+  return await prisma.certification.update({
+    where: { documentHash },
+    data,
+  });
+};
