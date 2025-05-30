@@ -59,3 +59,14 @@ exports.updateCertification = async (documentHash, data) => {
     data,
   });
 };
+
+exports.deleteCertification = async (documentHash) => {
+  const existing = await prisma.certification.findUnique({
+    where: { documentHash },
+  });
+  if (!existing) throw new Error('Certificação não encontrada');
+
+  return await prisma.certification.delete({
+    where: { documentHash },
+  });
+};

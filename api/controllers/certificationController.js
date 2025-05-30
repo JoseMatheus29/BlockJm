@@ -42,3 +42,13 @@ exports.updateCertification = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+exports.deleteCertification = async (req, res) => {
+  try {
+    const { hash } = req.params;
+
+    await certificationService.deleteCertification(hash);
+    res.json({ message: 'Certificação deletada com sucesso' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
