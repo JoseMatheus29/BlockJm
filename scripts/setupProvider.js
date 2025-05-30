@@ -9,7 +9,7 @@ async function main() {
 const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 
   // 2) Cria a wallet a partir da chave privada e conecta ao provider
-  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  // const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   //const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
 
