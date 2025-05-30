@@ -6,15 +6,16 @@ const { ethers } = require('ethers');
 
 async function main() {
   // 1) Cria o provider apontando para Sepolia via Alchemy
-const provider = new ethers.AlchemyProvider('sepolia', process.env.ALCHEMY_API_KEY);
+const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 
   // 2) Cria a wallet a partir da chave privada e conecta ao provider
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  //const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
 
   // 3) Teste simples: pegue o número do bloco atual
   const blockNumber = await provider.getBlockNumber();
-  console.log(`🛠 Conectado à Sepolia (via Alchemy). Bloco atual: ${blockNumber}`);
+  console.log(`🛠 Conectado à Rede Local . Bloco atual: ${blockNumber}`);
 
   // 4) Exemplo de envio de transação (gasLimit baixo apenas para teste)
   // const tx = await wallet.sendTransaction({

@@ -18,11 +18,11 @@ app.use(express.json());
 const prisma = new PrismaClient();
 
 // Setup provider e wallet
-const provider = new ethers.AlchemyProvider('sepolia', process.env.ALCHEMY_API_KEY);
+const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
 // ABI e endereço do contrato (coloque os seus!)
-const contractAddress = '0xe675d25eb3cda9bf81055c962e0da794add2662c';
+const contractAddress = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
 const contractABI = artifact.abi;
 
 const contract = new ethers.Contract(contractAddress, contractABI, wallet);
