@@ -1,6 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const certificationService = require('../services/certificationService');
+const { PrismaClient } = require('@prisma/client');
 
 exports.certifyDocument = async (req, res) => {
   try {
@@ -75,5 +76,28 @@ exports.getByCertifier = async (req, res) => {
     res.json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+exports.renderHomePage = async (req, res) => {
+  const prisma = new PrismaClient();
+  try {
+    const certifications = await prisma.certification.findMany({
+      orderBy: { id: 'desc' }
+    });
+
+    res.render('index', {
+      title: 'Página Inicial',
+      certifications,
+      message: req.query.message,
+      messageType: req.query.type || 'success'
+    });
+  } catch (error) {
+    res.render('index', {
+      title: 'Página Inicial',
+      certifications: [],
+      message: 'Erro ao carregar documentos.',
+      messageType: 'danger'
+    });
   }
 };
