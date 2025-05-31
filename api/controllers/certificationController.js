@@ -5,19 +5,27 @@ const certificationService = require('../services/certificationService');
 exports.certifyDocument = async (req, res) => {
   try {
     if (!req.file) {
-      console.log(req)
-      return res.status(400).json({ error: 'Arquivo PDF é obrigatório' });
+      return res.redirect('/?message=Arquivo+PDF+é+obrigatório&type=error');
     }
     if (req.file.mimetype !== 'application/pdf') {
-      return res.status(400).json({ error: 'Somente arquivos PDF são aceitos' });
+      return res.redirect('/?message=Somente+PDF+é+aceito&type=error');
     }
+
+    // Ler o arquivo para gerar hash
     const fileBuffer = fs.readFileSync(req.file.path);
     const hash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
-    const result = await certificationService.certifyDocument(`0x${hash}`);
-    
-    res.json(result);
+
+    // Chamar o serviço para certificar documento na blockchain
+    await certificationService.certifyDocument(`0x${hash}`);
+
+    // Opcional: apagar arquivo após processamento
+    fs.unlinkSync(req.file.path);
+
+    // Redirecionar com mensagem de sucesso
+    return res.redirect('/?message=Documento+certificado+com+sucesso&type=success');
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    // Redirecionar com mensagem de erro
+    return res.redirect('/?message=' + encodeURIComponent(error.message) + '&type=error');
   }
 };
 
