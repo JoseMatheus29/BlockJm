@@ -1,12 +1,20 @@
+const fs = require('fs');
+const crypto = require('crypto');
 const certificationService = require('../services/certificationService');
 
 exports.certifyDocument = async (req, res) => {
   try {
-    const { documentHash } = req.body;
-    if (!documentHash) {
-      return res.status(400).json({ error: 'documentHash é obrigatório'   });
+    if (!req.file) {
+      console.log(req)
+      return res.status(400).json({ error: 'Arquivo PDF é obrigatório' });
     }
-    const result = await certificationService.certifyDocument(documentHash);
+    if (req.file.mimetype !== 'application/pdf') {
+      return res.status(400).json({ error: 'Somente arquivos PDF são aceitos' });
+    }
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const hash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+    const result = await certificationService.certifyDocument(`0x${hash}`);
+    
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
