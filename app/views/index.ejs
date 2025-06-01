@@ -12,20 +12,23 @@
 <body class="-flex flex-column">
     <div class="bg-white p-4 rounded shadow">
         <div class="container">
-            <h1 class="mb-4 text-center text-primary"><%= title %></h1>
+            <h1 class="mb-4 text-center text-primary">
+                <%= title %>
+            </h1>
             <% if (message) { %>
                 <div class="alert alert-<%= messageType === 'success' ? 'success' : 'danger' %> text-center"
                     role="alert">
                     <%= message %>
                 </div>
-            <% } %>
-            <form action="/certification/certify" method="post" enctype="multipart/form-data"
-                class="d-flex flex-column mb-5">
-                <label for="file" class="form-label fw-semibold">
-                    Selecione um arquivo PDF para certificar:</label>
-                <input class="form-control mb-3" type="file" name="file" id="file" accept="application/pdf" required />
-                <button type="submit" class="btn btn-primary">Enviar e Certificar</button>
-            </form>
+                <% } %>
+                    <form action="/certification/certify" method="post" enctype="multipart/form-data"
+                        class="d-flex flex-column mb-5">
+                        <label for="file" class="form-label fw-semibold">
+                            Selecione um arquivo PDF para certificar:</label>
+                        <input class="form-control mb-3" type="file" name="file" id="file" accept="application/pdf"
+                            required />
+                        <button type="submit" class="btn btn-primary">Enviar e Certificar</button>
+                    </form>
         </div>
         <h2 class="mb-3">Documentos Certificados</h2>
 
@@ -60,11 +63,11 @@
                             </td>
                         </tr>
                         <% }); %>
-                            <% } else { %>
-                                <tr>
-                                    <td colspan="5" class="text-center">Nenhum documento certificado encontrado.</td>
-                                </tr>
-                                <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center">Nenhum documento certificado encontrado.</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>

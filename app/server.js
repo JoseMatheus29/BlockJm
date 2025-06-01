@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const certificationRoutes = require('../api/routes/certificationRoutes');
-const certificationController = require('../api/controllers/certificationController');
+const certificationRoutes = require('./routes/certificationRoutes');
+const certificationController = require('./controllers/certificationController');
 
 const app = express();
 
