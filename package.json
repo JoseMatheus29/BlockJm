@@ -7,7 +7,10 @@
     "express": "^5.1.0",
     "hardhat": "^2.24.1",
     "multer": "^2.0.0",
-    "prisma": "^6.8.2"
+    "prisma": "^6.8.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.8",
