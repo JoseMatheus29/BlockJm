@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: my_mysql
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: rootpassword
+       MYSQL_DATABASE: certificationdb
+       MYSQL_USER: user
+       MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  hardhat:
+    image: node:18-alpine
+    container_name: hardhat_node
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command: npx hardhat node
+    ports:
+      - "8545:8545"
+
+  backend:
+    build: .
+    container_name: certification_backend
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql://user:password@mysql:3306/certificationdb
+      PRIVATE_KEY: 0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
+      CONTRACT_ADDRESS: 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199
+    depends_on:
+      - mysql
+      - hardhat
+
+volumes:
+  mysql_data:

@@ -27,7 +27,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "dev": "nodemon api/server.js",
+    "start": "node api/server.js"
   },
   "repository": {
     "type": "git",
