@@ -86,8 +86,6 @@ exports.renderHomePage = async (req, res) => {
       orderBy: { id: 'desc' }
     });
 
-    console.log(certifications)
-
     res.render('index', {
       title: 'Página Inicial',
       certifications,

@@ -9,6 +9,87 @@ servers:
     description: Servidor local
 
 paths:
+
+  /auth/login:
+    post:
+      summary: Loga no sistema utilizando dados da carteira
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  description: Endereço da carteira Ethereum
+                  example: "0x1234567890abcdef"
+                signature:
+                  type: string
+                  description: Assinatura gerada pela chave privada
+                  example: "0xabcdef1234567890"
+                nonce:
+                  type: string
+                  description: Nonce gerado pelo backend para garantir unicidade da assinatura
+                  example: "xyz1234"
+      responses:
+        '200':
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login bem-sucedido
+        '400':
+          description: Falha na autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Falha na autenticação
+
+  /auth/nonce:
+    get:
+      summary: Gera o nonce para fazer login
+      tags:
+        - Auth
+      parameters:
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Endereço da carteira Ethereum, utilizado para gerar o nonce
+      responses:
+        '200':
+          description: Nonce gerado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nonce:
+                    type: string
+                    example: "xyz1234"  # Aqui, o exemplo de nonce gerado
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Endereço inválido ou faltando"
+
   /certification/certify:
     post:
       summary: Certifica um documento PDF
@@ -68,7 +149,10 @@ paths:
             schema:
               type: object
               properties:
-                # Defina aqui os campos atualizáveis
+                certifier:
+                  type: string
+                  description: Endereço do certifier
+                  example: "0x123abc456def"
       responses:
         '200':
           description: Certificação atualizada com sucesso
@@ -118,3 +202,4 @@ paths:
           description: Lista de certificações filtrada por certifier
         '400':
           description: Requisição inválida
+

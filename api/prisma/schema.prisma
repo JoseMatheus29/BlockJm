@@ -14,7 +14,7 @@ generator client {
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
-model Certification {
+model certification {
   id           Int      @id @default(autoincrement())
   documentHash String   @unique
   txHash       String

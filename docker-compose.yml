@@ -1,13 +1,13 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: my_mysql
+    container_name: mysql1
     restart: always
     environment:
-       MYSQL_ROOT_PASSWORD: rootpassword
+       MYSQL_ROOT_PASSWORD: admin123  
        MYSQL_DATABASE: certificationdb
-       MYSQL_USER: user
-       MYSQL_PASSWORD: password
+       MYSQL_USER: matheus
+       MYSQL_PASSWORD: teste123
     ports:
       - "3306:3306"
     volumes:
@@ -30,7 +30,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: mysql://user:password@mysql:3306/certificationdb
+      DATABASE_URL: mysql://root:admin123@mysql:3306/certificationdb 
       PRIVATE_KEY: 0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
       CONTRACT_ADDRESS: 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199
     depends_on:

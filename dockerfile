@@ -10,11 +10,12 @@ COPY package*.json ./
 # Instalar dependências
 RUN npm install
 
-# Copiar o restante do código
-COPY . .
+# Copiar o restante do código e o arquivo .env
+COPY . . 
 
 # Expor a porta que o app usa
 EXPOSE 3000
 
 # Comando para rodar a aplicação
 CMD ["npm", "run", "dev"]
+
