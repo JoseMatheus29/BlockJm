@@ -10,38 +10,52 @@ const contractABI = JSON.parse(fs.readFileSync(abiPath, 'utf8')).abi;
 
 const contractAddress = process.env.CONTRACT_ADDRESS;
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545');
-const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
-const contract = new ethers.Contract(contractAddress, contractABI, wallet);
+let wallet = null;
+let contract = null;
+try {
+  if (process.env.PRIVATE_KEY && contractAddress) {
+    wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+    contract = new ethers.Contract(contractAddress, contractABI, wallet);
+  }
+} catch (err) {
+  // Avoid throwing during module load (tests/environments without envs)
+  console.warn('certificationService: wallet/contract not initialized:', err && err.message);
+  wallet = null;
+  contract = null;
+}
 
 exports.certifyDocument = async (documentHash) => {
-    const tx = await contract.certifyDocument(documentHash);
+  if (!contract) throw new Error('Contract not configured');
 
-    const existing = await prisma.certification.findUnique({
-        where: { documentHash }
-    });
+  const tx = await contract.certifyDocument(documentHash);
 
-    if (existing) {
-        throw new Error("Documento já certificado");
-    }
+  const existing = await prisma.certification.findUnique({
+    where: { documentHash }
+  });
 
-    await prisma.certification.create({
-        data: {
-            documentHash,
-            txHash: tx.hash,
-            timestamp: new Date(),
-            certifier: wallet.address,
-        },
-    });
+  if (existing) {
+    throw new Error("Documento já certificado");
+  }
 
+  await prisma.certification.create({
+    data: {
+      documentHash,
+      txHash: tx.hash,
+      timestamp: new Date(),
+      certifier: wallet ? wallet.address : null,
+    },
+  });
 
-    return { message: 'Documento certificado', txHash: tx.hash };
+  return { message: 'Documento certificado', txHash: tx.hash };
 };
 
 exports.getCertification = async (documentHash) => {
-    const [timestamp, certifier] = await contract.getCertification(documentHash);
-    if (!timestamp) throw new Error('Documento não certificado');
+  if (!contract) throw new Error('Contract not configured');
 
-    return { documentHash, timestamp: new Date(timestamp * 1000), certifier };
+  const [timestamp, certifier] = await contract.getCertification(documentHash);
+  if (!timestamp) throw new Error('Documento não certificado');
+
+  return { documentHash, timestamp: new Date(Number(timestamp) * 1000), certifier };
 };
 
 exports.listAll = async () => {

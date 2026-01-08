@@ -1,16 +1,4 @@
-const express = require('express');
-const cors = require('cors');
-const certificationRoutes = require('./routes/certificationRoutes');
-const authRoutes = require('./routes/authRoutes'); 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-app.use('/certification', certificationRoutes);
-app.use('/auth', authRoutes);
-
-const swaggerSetup = require('./config/swagger');
-swaggerSetup(app);
+const app = require('./app');
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
