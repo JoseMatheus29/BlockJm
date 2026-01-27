@@ -92,8 +92,8 @@ BLOCKCHAIN_RPC_URL=http://hardhat:8545
 CONTRACT_ADDRESS=0xSEU_CONTRATO_AQUI
 
 # Banco de Dados (acessado de dentro do container backend)
-DATABASE_URL="mysql://root:admin123@mysql:3306/certificationdb"
-MYSQL_ROOT_PASSWORD=admin123
+DATABASE_URL="ENDERECO_AQUI"
+MYSQL_ROOT_PASSWORD=SENHA_AQUI
 MYSQL_DATABASE=certificationdb
 
 # Backend
@@ -108,7 +108,7 @@ PRIVATE_KEY=0xSEU_PRIVATE_KEY_DEV_AQUI
 BLOCKCHAIN_RPC_URL=http://127.0.0.1:8545
 CONTRACT_ADDRESS=0xSEU_CONTRATO_AQUI
 
-DATABASE_URL="mysql://root:admin123@localhost:3306/certificationdb"
+DATABASE_URL="ENDERECO_AQUI/certificationdb"
 PORT=3000
 ```
 
