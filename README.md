@@ -82,7 +82,9 @@ Crie um arquivo `.env` na raiz do projeto, baseado no exemplo abaixo.
 
 ```env
 # Blockchain
-PRIVATE_KEY=0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
+# ⚠️ Use SEMPRE uma chave exclusiva para desenvolvimento/local,
+#    NUNCA reutilize chaves de produção ou com fundos reais.
+PRIVATE_KEY=0xSEU_PRIVATE_KEY_DEV_AQUI
 ALCHEMY_API_KEY=SEU_API_KEY (opcional – usado para sepolia, se necessário)
 BLOCKCHAIN_RPC_URL=http://hardhat:8545
 
@@ -101,7 +103,8 @@ PORT=3000
 ### 🔧 Modo desenvolvimento local (sem Docker)
 
 ```env
-PRIVATE_KEY=0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
+# ⚠️ Chave privada apenas para desenvolvimento (sem fundos reais)
+PRIVATE_KEY=0xSEU_PRIVATE_KEY_DEV_AQUI
 BLOCKCHAIN_RPC_URL=http://127.0.0.1:8545
 CONTRACT_ADDRESS=0xSEU_CONTRATO_AQUI
 
