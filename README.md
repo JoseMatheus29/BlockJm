@@ -341,18 +341,3 @@ Projeto desenvolvido para **demonstração de certificação de documentos em bl
 - Arquitetura limpa de serviços e controllers
 - Documentação via Swagger
 
-Sinta-se à vontade para abrir *issues* ou contribuir com melhorias. 😄
-
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
