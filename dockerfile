@@ -7,11 +7,14 @@ WORKDIR /usr/src/app
 # Copiar arquivos de dependências
 COPY package*.json ./
 
-# Instalar dependências
-RUN npm install
-
-# Copiar o restante do código e o arquivo .env
+# Copiar todo o código primeiro (incluindo schema do Prisma)
 COPY . . 
+
+# Instalar dependências
+RUN npm install --legacy-peer-deps
+
+# Gerar Prisma Client
+RUN npx prisma generate --schema=api/prisma/schema.prisma
 
 # Expor a porta que o app usa
 EXPOSE 3000

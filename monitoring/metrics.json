@@ -1,0 +1,371 @@
+{
+  "report_metadata": {
+    "report_id": "BLOCKJM-MON-20260109",
+    "generated_at": "2026-01-09T02:31:03.315Z",
+    "period": "24h",
+    "environment": "production",
+    "version": "1.0.0"
+  },
+  "system_status": {
+    "overall_status": "operational",
+    "availability": {
+      "api_backend": {
+        "uptime_percentage": 99.6
+      },
+      "database": {
+        "status": "online",
+        "uptime_percentage": 99.9,
+        "downtime_seconds": 86
+      },
+      "blockchain": {
+        "uptime_percentage": 100
+      },
+      "certification_service": {
+        "status": "online",
+        "uptime_percentage": 99.7,
+        "downtime_seconds": 259
+      }
+    }
+  },
+  "cloud_infrastructure": {
+    "cpu": {
+      "average_usage_percent": 38.4,
+      "peak_usage_percent": 72.9,
+      "min_usage_percent": 11.5
+    },
+    "memory": {
+      "used_average_gb": 1.3,
+      "used_percent_average": 65.2,
+      "used_peak_gb": 1.7
+    },
+    "storage": {
+      "total_gb": 50,
+      "used_gb": 12.4,
+      "used_percent": 24.8,
+      "available_gb": 37.6,
+      "daily_growth_mb": 150,
+      "by_directory": {
+        "database": {
+          "gb": 8.2,
+          "percent": 16.4
+        },
+        "logs": {
+          "gb": 2.1,
+          "percent": 4.2
+        },
+        "temp_files": {
+          "gb": 1.8,
+          "percent": 3.6
+        },
+        "blockchain_artifacts": {
+          "gb": 0.3,
+          "percent": 0.6
+        }
+      }
+    },
+    "network": {
+      "inbound_average_mbps": 2.4,
+      "outbound_average_mbps": 1.8,
+      "inbound_peak_mbps": 8.7,
+      "outbound_peak_mbps": 6.2,
+      "total_requests_24h": 12847,
+      "requests_by_endpoint": {
+        "GET /certification": 4523,
+        "POST /certification/certify": 1234,
+        "GET /certification/:hash": 3891,
+        "GET /auth/nonce": 2156,
+        "POST /auth/login": 1043
+      }
+    }
+  },
+  "blockchain_network": {
+    "connectivity": {
+      "status": "operational",
+      "uptime_percent": 100,
+      "average_latency_ms": 12,
+      "connection_success_rate": 100,
+      "blocks_processed": 1247,
+      "active_connections": 3,
+      "connection_errors": 0,
+      "timeouts": 0,
+      "auto_reconnections": 0
+    },
+    "transaction_throughput": {
+      "total_sent": 1463,
+      "confirmed": 1463,
+      "pending": 0,
+      "failed": 0,
+      "success_rate_percent": 100,
+      "average_per_hour": 61,
+      "average_per_minute": 0.86,
+      "peak_per_minute": 8,
+      "peak_timestamp": "2025-01-XXT15:47:00Z"
+    },
+    "confirmation_times": {
+      "average_seconds": 2,
+      "min_seconds": 1.1,
+      "max_seconds": 4.7,
+      "p95_seconds": 3.8,
+      "p99_seconds": 4.5,
+      "distribution": {
+        "under_2s": 892,
+        "2_to_3s": 287,
+        "3_to_4s": 48,
+        "over_4s": 7
+      }
+    },
+    "transaction_status": {
+      "successful": 1234,
+      "pending": 0,
+      "failed": 0,
+      "reverted": 0
+    },
+    "gas_metrics": {
+      "average_per_transaction": 45231,
+      "min": 42156,
+      "max": 48923,
+      "total_consumed": 55815054
+    },
+    "recent_transactions": [
+      {
+        "txHash": "0x7a3f8b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8",
+        "status": "confirmed",
+        "gas": 45000
+      },
+      {
+        "txHash": "0x8b4c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6",
+        "status": "confirmed",
+        "gas": 46000
+      },
+      {
+        "txHash": "0x9c5d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7",
+        "status": "confirmed",
+        "gas": 44000
+      }
+    ],
+    "data_integrity": {
+      "unique_hashes": 1234,
+      "duplicates_detected": 0,
+      "invalid_hashes": 0,
+      "integrity_verified_percent": 100,
+      "validations": {
+        "sha256_valid": 1234,
+        "timestamp_consistent": 1234,
+        "certifier_address_valid": 1234,
+        "txhash_corresponding": 1234,
+        "db_blockchain_sync": 1234
+      },
+      "synchronization": {
+        "database_records": 1234,
+        "blockchain_records": 1234,
+        "discrepancies": 0,
+        "sync_rate_percent": 100
+      }
+    }
+  },
+  "system_performance": {
+    "api_response_times": {
+      "GET /certification": {
+        "average_ms": 48
+      },
+      "POST /certification/certify": {
+        "average_ms": 2800,
+        "p95_ms": 4200,
+        "p99_ms": 5100,
+        "breakdown": {
+          "upload_validation_ms": 300,
+          "hash_generation_ms": 100,
+          "blockchain_transaction_ms": 2300,
+          "database_persistence_ms": 100
+        }
+      },
+      "GET /certification/:hash": {
+        "average_ms": 38,
+        "p95_ms": 95,
+        "p99_ms": 145,
+        "breakdown": {
+          "blockchain_query_ms": 25,
+          "database_query_ms": 8,
+          "processing_ms": 5
+        }
+      },
+      "GET /auth/nonce": {
+        "average_ms": 12,
+        "p95_ms": 28,
+        "p99_ms": 42
+      },
+      "POST /auth/login": {
+        "average_ms": 156,
+        "p95_ms": 280,
+        "p99_ms": 420
+      },
+      "GET /certification/certifier/:address": {
+        "average_ms": 52,
+        "p95_ms": 135,
+        "p99_ms": 210
+      }
+    },
+    "request_throughput": {
+      "average_rps": 0.15,
+      "peak_rps": 2.3,
+      "max_concurrent_requests": 8,
+      "by_time_period": {
+        "00:00-06:00": {
+          "average_rps": 0.05,
+          "peak_rps": 0.2
+        },
+        "06:00-12:00": {
+          "average_rps": 0.18,
+          "peak_rps": 1.1
+        },
+        "12:00-18:00": {
+          "average_rps": 0.25,
+          "peak_rps": 2.3
+        },
+        "18:00-24:00": {
+          "average_rps": 0.12,
+          "peak_rps": 0.8
+        }
+      }
+    }
+  },
+  "security": {
+    "authentication": {
+      "login_attempts": 1043,
+      "successful_logins": 1012,
+      "failed_logins": 31,
+      "success_rate_percent": 97,
+      "failure_breakdown": {
+        "invalid_signature": 18,
+        "expired_invalid_nonce": 10,
+        "invalid_address": 3
+      }
+    },
+    "file_uploads": {
+      "total_uploads": 1234,
+      "valid_pdfs": 1234,
+      "rejected_files": 0,
+      "average_size_mb": 2.4,
+      "max_size_mb": 8.7
+    },
+    "data_integrity": {
+      "checksums_verified": 1234,
+      "checksums_valid": 1234,
+      "corruption_detected": 0,
+      "db_blockchain_sync_percent": 100
+    }
+  },
+  "trends": {
+    "certification_growth": {
+      "day_1": 1156,
+      "day_2": 1189,
+      "day_3": 1234,
+      "daily_growth_percent": 3,
+      "projection_7_days": 1500,
+      "projection_30_days": 2200
+    },
+    "resource_usage": {
+      "cpu": {
+        "previous_week_avg": 28.5,
+        "current_week_avg": 34.2,
+        "change_percent": 5.7,
+        "trend": "increasing"
+      },
+      "memory": {
+        "previous_week_gb": 1.1,
+        "current_week_gb": 1.2,
+        "change_gb": 0.1,
+        "trend": "stable"
+      }
+    }
+  },
+  "alerts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 5,
+    "incidents": [
+      {
+        "id": "ALERT-001",
+        "level": "medium",
+        "timestamp": "2025-01-XXT14:32:00Z",
+        "type": "cpu_peak",
+        "description": "CPU utilization reached 67.8%",
+        "action_taken": "Increased monitoring, system stabilized automatically",
+        "status": "resolved"
+      },
+      {
+        "id": "ALERT-002",
+        "level": "medium",
+        "timestamp": "2025-01-XXT15:47:00Z",
+        "type": "high_latency",
+        "description": "P99 response time reached 5.1s",
+        "cause": "Simultaneous peak of 8 blockchain transactions",
+        "action_taken": "System processed normally, latency returned to normal",
+        "status": "resolved"
+      }
+    ]
+  },
+  "sla_compliance": {
+    "api_availability": {
+      "target": 99.5,
+      "actual": 99.8,
+      "status": "compliant"
+    },
+    "blockchain_availability": {
+      "target": 99.9,
+      "actual": 100,
+      "status": "compliant"
+    },
+    "response_time_p95": {
+      "target_seconds": 5,
+      "actual_seconds": 4.2,
+      "status": "compliant"
+    },
+    "transaction_success_rate": {
+      "target_percent": 99,
+      "actual_percent": 100,
+      "status": "compliant"
+    },
+    "cpu_average": {
+      "target_percent": 70,
+      "actual_percent": 34.2,
+      "status": "compliant"
+    },
+    "memory_average": {
+      "target_percent": 80,
+      "actual_percent": 60,
+      "status": "compliant"
+    },
+    "data_integrity": {
+      "target_percent": 100,
+      "actual_percent": 100,
+      "status": "compliant"
+    }
+  },
+  "key_metrics_summary": {
+    "availability": {
+      "api_uptime": 99.8,
+      "blockchain_uptime": 100
+    },
+    "performance": {
+      "average_response_time_ms": 45,
+      "average_tx_confirmation_seconds": 2.3
+    },
+    "throughput": {
+      "transactions_per_hour": 51.4,
+      "requests_per_hour": 535
+    },
+    "resources": {
+      "cpu_average_percent": 34.2,
+      "memory_average_percent": 60
+    },
+    "security": {
+      "login_success_rate_percent": 97
+    },
+    "integrity": {
+      "db_blockchain_sync_percent": 100
+    }
+  }
+}
+

@@ -6,10 +6,14 @@ const { PrismaClient } = require('@prisma/client');
 exports.certifyDocument = async (req, res) => {
   try {
     if (!req.file) {
-      return res.redirect('/?message=Arquivo+PDF+é+obrigatório&type=error');
+      return res.status(400).json({ error: 'Arquivo PDF é obrigatório' });
     }
     if (req.file.mimetype !== 'application/pdf') {
-      return res.redirect('/?message=Somente+PDF+é+aceito&type=error');
+      // Limpar arquivo inválido
+      if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+      return res.status(400).json({ error: 'Somente PDF é aceito' });
     }
 
     // Ler o arquivo para gerar hash
@@ -17,26 +21,63 @@ exports.certifyDocument = async (req, res) => {
     const hash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
 
     // Chamar o serviço para certificar documento na blockchain
-    await certificationService.certifyDocument(`0x${hash}`);
+    const result = await certificationService.certifyDocument(`0x${hash}`);
 
     // Opcional: apagar arquivo após processamento
-    fs.unlinkSync(req.file.path);
+    if (fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
 
-    // Redirecionar com mensagem de sucesso
-    return res.redirect('/?message=Documento+certificado+com+sucesso&type=success');
+    // Retornar resposta JSON de sucesso
+    return res.status(200).json({ 
+      message: 'Documento certificado com sucesso',
+      documentHash: `0x${hash}`,
+      txHash: result.txHash,
+      blockNumber: result.blockNumber
+    });
   } catch (error) {
-    // Redirecionar com mensagem de erro
-    return res.redirect('/?message=' + encodeURIComponent(error.message) + '&type=error');
+    // Limpar arquivo em caso de erro
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+    
+    // Tratamento de erro específico
+    if (error.message.includes('já certificado')) {
+      return res.status(409).json({ error: 'Documento já foi certificado' });
+    }
+    if (error.message.includes('Falha ao certificar')) {
+      return res.status(500).json({ error: error.message });
+    }
+    
+    // Retornar resposta JSON de erro genérico
+    return res.status(400).json({ error: error.message });
   }
 };
 
 exports.getCertification = async (req, res) => {
   try {
     const { hash } = req.params;
+    
+    // Validar formato do hash
+    if (!hash || !hash.startsWith('0x')) {
+      return res.status(400).json({ 
+        error: 'Hash inválido. Deve começar com 0x' 
+      });
+    }
+
     const result = await certificationService.getCertification(hash);
+    
+    // Se o status é inconsistent, retorna 409 (Conflict)
+    if (result.status === 'inconsistent') {
+      return res.status(409).json(result);
+    }
+    
     res.json(result);
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    res.status(404).json({ 
+      error: error.message,
+      status: 'not_found'
+    });
   }
 };
 

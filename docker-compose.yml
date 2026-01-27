@@ -4,10 +4,10 @@ services:
     container_name: mysql1
     restart: always
     environment:
-       MYSQL_ROOT_PASSWORD: admin123  
+       MYSQL_ROOT_PASSWORD: admin123
        MYSQL_DATABASE: certificationdb
-       MYSQL_USER: matheus
-       MYSQL_PASSWORD: teste123
+       MYSQL_USER: mysqluser
+       MYSQL_PASSWORD: admin123
     ports:
       - "3306:3306"
     volumes:
@@ -27,12 +27,16 @@ services:
     build: .
     container_name: certification_backend
     restart: on-failure
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: mysql://root:admin123@mysql:3306/certificationdb 
-      PRIVATE_KEY: 0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
-      CONTRACT_ADDRESS: 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199
+      DATABASE_URL: ${DATABASE_URL}
+      PRIVATE_KEY: ${PRIVATE_KEY}
+      CONTRACT_ADDRESS: ${CONTRACT_ADDRESS}
+      BLOCKCHAIN_RPC_URL: http://hardhat:8545
+      PORT: ${PORT:-3000}
     depends_on:
       - mysql
       - hardhat
